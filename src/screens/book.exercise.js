@@ -19,7 +19,7 @@ import {StatusButtons} from 'components/status-buttons'
 function BookScreen({user}) {
   const {bookId} = useParams()
   // 💣 remove the user argument
-  const book = useBook(bookId, user)
+  const book = useBook(bookId)
   // 💣 remove the user argument
   const listItem = useListItem(bookId, user)
 
