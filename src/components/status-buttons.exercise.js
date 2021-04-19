@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import {jsx} from '@emotion/core'
-
 import * as React from 'react'
 import {
   FaCheckCircle,
@@ -9,13 +7,14 @@ import {
   FaBook,
   FaTimesCircle,
 } from 'react-icons/fa'
-import Tooltip from '@reach/tooltip'
 import {queryCache, useQuery, useMutation} from 'react-query'
-import {client} from 'utils/api-client'
-// 🐨 you'll need useQuery, useMutation, and queryCache from 'react-query'
-// 🐨 you'll also need client from 'utils/api-client'
-import {useAsync} from 'utils/hooks'
+import {jsx} from '@emotion/core'
+import Tooltip from '@reach/tooltip'
+
 import * as colors from 'styles/colors'
+import {client} from 'utils/api-client'
+import {useAsync} from 'utils/hooks'
+
 import {CircleButton, Spinner} from './lib'
 
 function TooltipButton({label, highlight, onClick, icon, ...rest}) {
