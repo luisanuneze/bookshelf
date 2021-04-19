@@ -63,6 +63,11 @@ function StatusButtons({user, book}) {
     {onSettled: () => queryCache.invalidateQueries('list-items')},
   )
 
+  const [remove] = useMutation(
+    ({id}) => client(`list-items/${id}`, {method: 'DELETE', token: user.token}),
+    {onSettled: () => queryCache.invalidateQueries('list-items')},
+  )
+
   // 💰 for all the mutations below, if you want to get the list-items cache
   // updated after this query finishes the use the `onSettled` config option
   // to queryCache.invalidateQueries('list-items')
@@ -106,6 +111,7 @@ function StatusButtons({user, book}) {
         <TooltipButton
           label="Remove from list"
           highlight={colors.danger}
+          onClick={() => remove({id: listItem.id})}
           // 🐨 add an onClick here that calls remove
           icon={<FaMinusCircle />}
         />
