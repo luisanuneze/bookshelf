@@ -1,22 +1,21 @@
 /** @jsx jsx */
-import {jsx} from '@emotion/core'
-
-import * as React from 'react'
 import debounceFn from 'debounce-fn'
+import * as React from 'react'
 import {FaRegCalendarAlt} from 'react-icons/fa'
-import Tooltip from '@reach/tooltip'
+import {useQuery, useMutation, queryCache} from 'react-query'
 import {useParams} from 'react-router-dom'
-// 🐨 you'll need these:
-// import {useQuery, useMutation, queryCache} from 'react-query'
-import {useAsync} from 'utils/hooks'
-import {client} from 'utils/api-client'
-import {formatDate} from 'utils/misc'
-import * as mq from 'styles/media-queries'
-import * as colors from 'styles/colors'
+import {jsx} from '@emotion/core'
+import Tooltip from '@reach/tooltip'
+
+import bookPlaceholderSvg from 'assets/book-placeholder.svg'
 import {Textarea} from 'components/lib'
 import {Rating} from 'components/rating'
 import {StatusButtons} from 'components/status-buttons'
-import bookPlaceholderSvg from 'assets/book-placeholder.svg'
+import * as colors from 'styles/colors'
+import * as mq from 'styles/media-queries'
+import {client} from 'utils/api-client'
+import {useAsync} from 'utils/hooks'
+import {formatDate} from 'utils/misc'
 
 const loadingBook = {
   title: 'Loading...',
@@ -29,27 +28,12 @@ const loadingBook = {
 
 function BookScreen({user}) {
   const {bookId} = useParams()
-  // 💣 remove the useAsync call here
-  const {data, run} = useAsync()
-
-  // 🐨 call useQuery here
-  // queryKey should be ['book', {bookId}]
-  // queryFn should be what's currently passed in the run function below
-
-  // 💣 remove the useEffect here (react-query will handle that now)
-  React.useEffect(() => {
-    run(client(`books/${bookId}`, {token: user.token}))
-  }, [run, bookId, user.token])
-
-  // 🐨 call useQuery to get the list item from the list-items endpoint
-  // queryKey should be 'list-items'
-  // queryFn should call the 'list-items' endpoint with the user's token
+  const {data: book = loadingBook} = useQuery({
+    queryKey: ['book', {bookId}],
+    queryFn: () =>
+      client(`books/${bookId}`, {token: user.token}).then(data => data.book),
+  })
   const listItem = null
-  // 🦉 NOTE: the backend doesn't support getting a single list-item by it's ID
-  // and instead expects us to cache all the list items and look them up in our
-  // cache. This works out because we're using react-query for caching!
-
-  const book = data?.book ?? loadingBook
   const {title, author, coverImageUrl, publisher, synopsis} = book
 
   return (
