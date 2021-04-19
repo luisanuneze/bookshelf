@@ -14,7 +14,7 @@ import {StatusButtons} from 'components/status-buttons'
 import * as colors from 'styles/colors'
 import * as mq from 'styles/media-queries'
 import {client} from 'utils/api-client'
-import {useAsync} from 'utils/hooks'
+import {useBookSearch} from 'utils/books'
 import {formatDate} from 'utils/misc'
 
 const loadingBook = {
