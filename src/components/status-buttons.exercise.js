@@ -10,7 +10,7 @@ import {
   FaTimesCircle,
 } from 'react-icons/fa'
 import Tooltip from '@reach/tooltip'
-import {useMutation} from 'react-query'
+import {queryCache, useQuery, useMutation} from 'react-query'
 import {client} from 'utils/api-client'
 // 🐨 you'll need useQuery, useMutation, and queryCache from 'react-query'
 // 🐨 you'll also need client from 'utils/api-client'
@@ -50,10 +50,17 @@ function TooltipButton({label, highlight, onClick, icon, ...rest}) {
 }
 
 function StatusButtons({user, book}) {
-  const listItem = null
+  const {data: listItems} = useQuery({
+    queryKey: 'list-items',
+    queryFn: () =>
+      client('list-items', {token: user.token}).then(data => data.listItems),
+  })
 
-  const [create] = useMutation(({bookId}) =>
-    client('list-items', {data: {bookId}, token: user.token}),
+  const listItem = listItems?.find(li => li.bookId === book.id) ?? null
+
+  const [create] = useMutation(
+    ({bookId}) => client('list-items', {data: {bookId}, token: user.token}),
+    {onSettled: () => queryCache.invalidateQueries('list-items')},
   )
 
   // 💰 for all the mutations below, if you want to get the list-items cache
