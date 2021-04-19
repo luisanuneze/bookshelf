@@ -7,32 +7,18 @@ import {useParams} from 'react-router-dom'
 import {jsx} from '@emotion/core'
 import Tooltip from '@reach/tooltip'
 
-import bookPlaceholderSvg from 'assets/book-placeholder.svg'
 import {Textarea} from 'components/lib'
 import {Rating} from 'components/rating'
 import {StatusButtons} from 'components/status-buttons'
 import * as colors from 'styles/colors'
 import * as mq from 'styles/media-queries'
 import {client} from 'utils/api-client'
-import {useBookSearch} from 'utils/books'
+import {useBook} from 'utils/books'
 import {formatDate} from 'utils/misc'
-
-const loadingBook = {
-  title: 'Loading...',
-  author: 'loading...',
-  coverImageUrl: bookPlaceholderSvg,
-  publisher: 'Loading Publishing',
-  synopsis: 'Loading...',
-  loadingBook: true,
-}
 
 function BookScreen({user}) {
   const {bookId} = useParams()
-  const {data: book = loadingBook} = useQuery({
-    queryKey: ['book', {bookId}],
-    queryFn: () =>
-      client(`books/${bookId}`, {token: user.token}).then(data => data.book),
-  })
+  const book = useBook(bookId, user)
   const {data: listItems} = useQuery({
     queryKey: 'list-items',
     queryFn: () =>
