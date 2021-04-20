@@ -35,9 +35,3 @@ test('adds auth token when a token is provided', async () => {
 
   expect(request.headers.get('Authorization')).toBe(`Bearer ${token}`)
 })
-
-test.todo('allows for config overrides')
-
-test.todo(
-  'when data is provided, it is stringified and the method defaults to POST',
-)
