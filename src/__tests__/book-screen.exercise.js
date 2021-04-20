@@ -1,8 +1,8 @@
 import * as React from 'react'
 import {render, screen, waitForElementToBeRemoved} from '@testing-library/react'
 
-import {App} from 'app'
 import * as auth from 'auth-provider'
+import {App} from 'app'
 import {AppProviders} from 'context'
 import {buildUser, buildBook} from 'test/generate'
 
