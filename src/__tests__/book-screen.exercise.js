@@ -1,11 +1,11 @@
-// 🐨 here are the things you're going to need for this test:
-// import * as React from 'react'
-// import {render, screen, waitFor} from '@testing-library/react'
-// import {queryCache} from 'react-query'
-// import {buildUser, buildBook} from 'test/generate'
-// import * as auth from 'auth-provider'
-// import {AppProviders} from 'context'
-// import {App} from 'app'
+import * as React from 'react'
+import {render, screen, waitFor} from '@testing-library/react'
+import {queryCache} from 'react-query'
+
+import {App} from 'app'
+import * as auth from 'auth-provider'
+import {AppProviders} from 'context'
+import {buildUser, buildBook} from 'test/generate'
 
 // 🐨 after each test, clear the queryCache and auth.logout
 
