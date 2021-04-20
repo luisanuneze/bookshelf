@@ -1,17 +1,17 @@
 /** @jsx jsx */
+import {ErrorBoundary} from 'react-error-boundary'
+import {Routes, Route, Link as RouterLink, useMatch} from 'react-router-dom'
 import {jsx} from '@emotion/core'
 
-import {Routes, Route, Link as RouterLink, useMatch} from 'react-router-dom'
-import {ErrorBoundary} from 'react-error-boundary'
 import {Button, ErrorMessage, FullPageErrorFallback} from './components/lib'
-import * as mq from './styles/media-queries'
-import * as colors from './styles/colors'
 import {useAuth} from './context/auth-context'
-import {ReadingListScreen} from './screens/reading-list'
-import {FinishedScreen} from './screens/finished'
-import {DiscoverBooksScreen} from './screens/discover'
 import {BookScreen} from './screens/book'
+import {DiscoverBooksScreen} from './screens/discover'
+import {FinishedScreen} from './screens/finished'
 import {NotFoundScreen} from './screens/not-found'
+import {ReadingListScreen} from './screens/reading-list'
+import * as colors from './styles/colors'
+import * as mq from './styles/media-queries'
 
 function ErrorFallback({error}) {
   return (

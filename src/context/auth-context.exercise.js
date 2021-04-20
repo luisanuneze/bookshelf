@@ -1,11 +1,11 @@
 /** @jsx jsx */
+import * as React from 'react'
 import {jsx} from '@emotion/core'
 
-import * as React from 'react'
 import * as auth from 'auth-provider'
+import {FullPageSpinner, FullPageErrorFallback} from 'components/lib'
 import {client} from 'utils/api-client'
 import {useAsync} from 'utils/hooks'
-import {FullPageSpinner, FullPageErrorFallback} from 'components/lib'
 
 async function getUser() {
   let user = null
