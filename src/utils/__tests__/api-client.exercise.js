@@ -19,7 +19,22 @@ test('makes GET requests to the given endpoint', async () => {
   expect(result).toEqual(mockResult)
 })
 
-test.todo('adds auth token when a token is provided')
+test('adds auth token when a token is provided', async () => {
+  const token = 'FAKE_TOKEN'
+  let request
+  const endpoint = 'test-endpoint'
+  const mockResult = {mockValue: 'VALUE'}
+  server.use(
+    rest.get(`${apiURL}/${endpoint}`, async (req, res, ctx) => {
+      request = req
+      return res(ctx.json(mockResult))
+    }),
+  )
+
+  await client(endpoint, {token})
+
+  expect(request.headers.get('Authorization')).toBe(`Bearer ${token}`)
+})
 
 test.todo('allows for config overrides')
 
